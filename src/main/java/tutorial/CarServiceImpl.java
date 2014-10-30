@@ -2,7 +2,9 @@ package tutorial;
 
 import java.util.LinkedList;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service("carService")
 public class CarServiceImpl implements CarService{
 
 	//data model

@@ -7,6 +7,7 @@ import java.util.Set;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.*;
+import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.*;
 import org.zkoss.zul.ext.Selectable;
 
@@ -29,14 +30,20 @@ public class SearchController extends SelectorComposer<Component> {
 	@Wire
 	private Image previewImage;
 	
-	
-	private CarService carService = new CarServiceImpl();
+	@WireVariable
+	private CarService carService;
 	
 	@Listen("onClick = #searchButton")
 	public void search(){
 		String keyword = keywordBox.getValue();
 		List<Car> result = carService.search(keyword);
 		carListbox.setModel(new ListModelList<Car>(result));
+	}
+	
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+//		carService = (CarService) SpringUtil.getBean("carService");
 	}
 	
 	@Listen("onSelect = #carListbox")
