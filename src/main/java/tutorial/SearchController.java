@@ -6,11 +6,18 @@ import java.util.Set;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
-import org.zkoss.zk.ui.select.annotation.*;
-import org.zkoss.zkplus.spring.SpringUtil;
-import org.zkoss.zul.*;
+import org.zkoss.zk.ui.select.annotation.Listen;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.ext.Selectable;
 
+@VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class SearchController extends SelectorComposer<Component> {
 
 	private static final long serialVersionUID = 1L;
@@ -40,11 +47,6 @@ public class SearchController extends SelectorComposer<Component> {
 		carListbox.setModel(new ListModelList<Car>(result));
 	}
 	
-	@Override
-	public void doAfterCompose(Component comp) throws Exception {
-		super.doAfterCompose(comp);
-//		carService = (CarService) SpringUtil.getBean("carService");
-	}
 	
 	@Listen("onSelect = #carListbox")
 	public void showDetail(){
